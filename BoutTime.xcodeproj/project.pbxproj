@@ -34,6 +34,8 @@
 		1189298C1DD9589A00337D46 /* webview_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 118929781DD9589A00337D46 /* webview_bar.png */; };
 		1189298F1DD958A800337D46 /* CorrectDing.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1189298D1DD958A800337D46 /* CorrectDing.wav */; };
 		118929901DD958A800337D46 /* IncorrectBuzz.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1189298E1DD958A800337D46 /* IncorrectBuzz.wav */; };
+		1197B7FB1DD98370006D9F0F /* HistoricalEventsData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1197B7FA1DD98370006D9F0F /* HistoricalEventsData.plist */; };
+		11A123F41DDA8F6600B9B47B /* BoutTimeGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A123F31DDA8F6600B9B47B /* BoutTimeGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,8 @@
 		118929781DD9589A00337D46 /* webview_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = webview_bar.png; sourceTree = "<group>"; };
 		1189298D1DD958A800337D46 /* CorrectDing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = CorrectDing.wav; sourceTree = "<group>"; };
 		1189298E1DD958A800337D46 /* IncorrectBuzz.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = IncorrectBuzz.wav; sourceTree = "<group>"; };
+		1197B7FA1DD98370006D9F0F /* HistoricalEventsData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HistoricalEventsData.plist; sourceTree = "<group>"; };
+		11A123F31DDA8F6600B9B47B /* BoutTimeGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoutTimeGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,8 +108,10 @@
 				115510AB1DD94768002C7D5C /* Assets.xcassets */,
 				115510AD1DD94768002C7D5C /* LaunchScreen.storyboard */,
 				115510B01DD94768002C7D5C /* Info.plist */,
+				1197B7FA1DD98370006D9F0F /* HistoricalEventsData.plist */,
 				118929641DD9588400337D46 /* Audio */,
 				118929631DD9587000337D46 /* Images */,
+				11A123F31DDA8F6600B9B47B /* BoutTimeGame.swift */,
 			);
 			path = BoutTime;
 			sourceTree = "<group>";
@@ -178,6 +184,7 @@
 				TargetAttributes = {
 					115510A01DD94768002C7D5C = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = M336FH83UQ;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -216,6 +223,7 @@
 				1189298F1DD958A800337D46 /* CorrectDing.wav in Resources */,
 				1189297E1DD9589A00337D46 /* icon40@1x.png in Resources */,
 				115510AC1DD94768002C7D5C /* Assets.xcassets in Resources */,
+				1197B7FB1DD98370006D9F0F /* HistoricalEventsData.plist in Resources */,
 				1189297A1DD9589A00337D46 /* down_full.png in Resources */,
 				118929851DD9589A00337D46 /* next_round_success.png in Resources */,
 				1189298B1DD9589A00337D46 /* up_half.png in Resources */,
@@ -242,6 +250,7 @@
 			files = (
 				115510A71DD94768002C7D5C /* ViewController.swift in Sources */,
 				115510A51DD94768002C7D5C /* AppDelegate.swift in Sources */,
+				11A123F41DDA8F6600B9B47B /* BoutTimeGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +371,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = M336FH83UQ;
 				INFOPLIST_FILE = BoutTime/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.10RedHacks.BoutTime;
@@ -374,6 +384,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = M336FH83UQ;
 				INFOPLIST_FILE = BoutTime/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.10RedHacks.BoutTime;
