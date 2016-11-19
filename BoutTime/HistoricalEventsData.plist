@@ -1,214 +1,281 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<array>
+<dict>
+	<key>event01</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>http://simpsons.wikia.com/wiki/Homer_Simpson</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>1</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string>Homer Simpson is born.</string>
+		<key>date</key>
+		<string>1955-05-16T14:00:00Z</string>
 	</dict>
+	<key>event02</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>http://simpsons.wikia.com/wiki/Krusty_the_Clown</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>2</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string>Krusty the Clown begins his television career.</string>
+		<key>date</key>
+		<string>1963-02-19T06:35:07Z</string>
 	</dict>
+	<key>event03</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>http://simpsons.wikia.com/wiki/Maggie_Simpson</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>3</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string>Maggie Simpson is born.</string>
+		<key>date</key>
+		<string>1989-08-19T02:51:54Z</string>
 	</dict>
+	<key>event04</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>https://en.wikipedia.org/wiki/Trash_of_the_Titans</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>4</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string>Springfield gets filled with too much garbage, causing them to moving every building at least 5 miles down the road.</string>
+		<key>date</key>
+		<string>1998-09-06T06:35:31Z</string>
 	</dict>
+	<key>event05</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>http://simpsons.wikia.com/wiki/She_of_Little_Faith</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>5</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string>Lisa Simpson becomes a Buddhist.</string>
+		<key>date</key>
+		<string>2001-12-01T05:35:31Z</string>
 	</dict>
+	<key>event06</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>http://simpsons.wikia.com/wiki/The_Front</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>6</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string>Bart and Lisa try to make their own Itchy and Scratchy cartoon. Meanwhile, Homer takes a test to graduate high school and passes</string>
+		<key>date</key>
+		<string>1993-04-15T06:35:31Z</string>
 	</dict>
+	<key>event07</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>http://simpsons.wikia.com/wiki/Mona_Simpson</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>7</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string>Homer&apos;s mother Mona dies</string>
+		<key>date</key>
+		<string>2009-05-12T06:35:31Z</string>
 	</dict>
+	<key>event08</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>http://simpsons.wikia.com/wiki/Kumiko_Albertson</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>8</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string>Comic Book Guy married Kumiko</string>
+		<key>date</key>
+		<string>2014-01-12T05:35:31Z</string>
 	</dict>
+	<key>event09</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>https://en.wikipedia.org/wiki/Lisa_Goes_Gaga</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>9</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string> Lady Gaga pays a visit to Springfield to help everyone feel better about themselves.</string>
+		<key>date</key>
+		<string>2012-05-20T06:35:31Z</string>
 	</dict>
+	<key>event10</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>http://simpsons.wikia.com/wiki/New_Kids_on_the_Blecch</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>10</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string>The 97th annual Springfield Marathon is held.</string>
+		<key>date</key>
+		<string>2001-02-24T05:35:31Z</string>
 	</dict>
+	<key>event11</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>http://simpsons.wikia.com/wiki/Deep_Space_Homer</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>11</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string>Homer goes to outer space. </string>
+		<key>date</key>
+		<string>1994-02-24T05:35:31Z</string>
 	</dict>
+	<key>event12</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>http://simpsons.wikia.com/wiki/Krusty_Gets_Busted</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>12</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string>Sideshow Bob frames Krusty for armed robbery. Bart exposes Sideshow Bob, who then gets arrested.</string>
+		<key>date</key>
+		<string>1990-04-22T06:35:31Z</string>
 	</dict>
+	<key>event13</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>http://simpsons.wikia.com/wiki/&apos;Round_Springfield</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>13</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string>Bleeding Gums Murphy dies. </string>
+		<key>date</key>
+		<string>1995-04-30T06:35:31Z</string>
 	</dict>
+	<key>event14</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>http://simpsons.wikia.com/wiki/Who_Shot_Mr._Burns%3F_(Part_Two)</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>14</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string>After trying to block out the sun, Mr. Burns gets shot. Maggie is revealed to be the shooter.</string>
+		<key>date</key>
+		<string>1995-09-17T06:35:31Z</string>
 	</dict>
+	<key>event15</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>https://en.wikipedia.org/wiki/The_Trouble_with_Trillions</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>15</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string>After World War 2, Mr. Burns is given the world&apos;s only trillion dollar bill to give to Europe to pay for reconstruction. However, the 1 trillion dollars never came.</string>
+		<key>date</key>
+		<string>1998-04-05T06:35:31Z</string>
 	</dict>
+	<key>event16</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>https://en.wikipedia.org/wiki/Bart_Gets_an_%22F%22</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>16</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string> After an important achievement test, Bart is pushed down to the third grade, and Lisa is pushed up to the third grade.</string>
+		<key>date</key>
+		<string>1990-10-11T06:35:31Z</string>
 	</dict>
+	<key>event17</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>https://simpsonswiki.com/wiki/Buttermilk</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>17</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string>The 55th annual Donkey Basketball game is held at Springfield Elementary School.</string>
+		<key>date</key>
+		<string>2004-12-23T05:35:31Z</string>
 	</dict>
+	<key>event18</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>https://en.wikipedia.org/wiki/Dial_%22N%22_for_Nerder</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>18</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string>After a prank gone horribly wrong, Bart and Lisa believe that they have killed Martin Prince and are turning into monsters.</string>
+		<key>date</key>
+		<string>2008-03-09T05:35:31Z</string>
 	</dict>
+	<key>event19</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>http://simpsons.wikia.com/wiki/Waverly_Hills,_9-0-2-1-D&apos;oh</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>19</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string>Homer and Marge take Bart and Lisa to Waverly Hills where they can get a better education.</string>
+		<key>date</key>
+		<string>2009-05-03T06:35:31Z</string>
 	</dict>
+	<key>event20</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>http://simpsons.wikia.com/wiki/500_Keys</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>20</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string> Lisa discovers a false classroom hidden under Springfield Elementary School.</string>
+		<key>date</key>
+		<string>2011-05-15T06:35:31Z</string>
 	</dict>
+	<key>event21</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>http://simpsons.wikia.com/wiki/Pranksta_Rap</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>21</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string>Bart goes to a Murder 4 Life rap concert in Springfield. He fakes being kidnapped as an alibi so Homer and Marge won&apos;t know he went.</string>
+		<key>date</key>
+		<string>2005-02-13T05:35:31Z</string>
 	</dict>
+	<key>event22</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>https://en.wikipedia.org/wiki/Alone_Again,_Natura-Diddily</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>22</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string>Ned&apos;s wife, Maude Flanders dies. Ned Flanders is very sad</string>
+		<key>date</key>
+		<string>2000-02-13T05:35:31Z</string>
 	</dict>
+	<key>event23</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>https://en.wikipedia.org/wiki/Eight_Misbehavin&apos;</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>23</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string> At 12:15 AM, The Nahasapeemapetilon Octuplets are born</string>
+		<key>date</key>
+		<string>1999-11-21T05:35:31Z</string>
 	</dict>
+	<key>event24</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>https://simpsonswiki.com/wiki/Grift_of_the_Magi</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>24</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string> A new toy is made called the Funzo.</string>
+		<key>date</key>
+		<string>1999-12-19T05:35:31Z</string>
 	</dict>
+	<key>event25</key>
 	<dict>
 		<key>URL</key>
-		<string></string>
+		<string>https://en.wikipedia.org/wiki/The_Itchy_%26_Scratchy_%26_Poochie_Show</string>
 		<key>seqNo</key>
-		<integer>0</integer>
+		<string>25</string>
 		<key>eventDescription</key>
-		<string></string>
+		<string>A third main character, Poochie, is introduced into The Itchy &amp; Scratchy Show.</string>
+		<key>date</key>
+		<string>1997-02-09T05:35:31Z</string>
 	</dict>
-	<dict>
-		<key>URL</key>
-		<string></string>
-		<key>seqNo</key>
-		<integer>0</integer>
-		<key>eventDescription</key>
-		<string></string>
-	</dict>
-</array>
+</dict>
 </plist>

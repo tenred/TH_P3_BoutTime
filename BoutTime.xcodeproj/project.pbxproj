@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1132D6FE1DDABF880074E1C3 /* PlaySound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132D6FD1DDABF880074E1C3 /* PlaySound.swift */; };
 		115510A51DD94768002C7D5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115510A41DD94768002C7D5C /* AppDelegate.swift */; };
 		115510A71DD94768002C7D5C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115510A61DD94768002C7D5C /* ViewController.swift */; };
 		115510AA1DD94768002C7D5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 115510A81DD94768002C7D5C /* Main.storyboard */; };
@@ -34,11 +35,13 @@
 		1189298C1DD9589A00337D46 /* webview_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 118929781DD9589A00337D46 /* webview_bar.png */; };
 		1189298F1DD958A800337D46 /* CorrectDing.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1189298D1DD958A800337D46 /* CorrectDing.wav */; };
 		118929901DD958A800337D46 /* IncorrectBuzz.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1189298E1DD958A800337D46 /* IncorrectBuzz.wav */; };
+		1191B7091DDD79C6005813A6 /* pListConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1191B7081DDD79C6005813A6 /* pListConverter.swift */; };
 		1197B7FB1DD98370006D9F0F /* HistoricalEventsData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1197B7FA1DD98370006D9F0F /* HistoricalEventsData.plist */; };
 		11A123F41DDA8F6600B9B47B /* BoutTimeGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A123F31DDA8F6600B9B47B /* BoutTimeGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1132D6FD1DDABF880074E1C3 /* PlaySound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaySound.swift; sourceTree = "<group>"; };
 		115510A11DD94768002C7D5C /* BoutTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoutTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		115510A41DD94768002C7D5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		115510A61DD94768002C7D5C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +71,7 @@
 		118929781DD9589A00337D46 /* webview_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = webview_bar.png; sourceTree = "<group>"; };
 		1189298D1DD958A800337D46 /* CorrectDing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = CorrectDing.wav; sourceTree = "<group>"; };
 		1189298E1DD958A800337D46 /* IncorrectBuzz.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = IncorrectBuzz.wav; sourceTree = "<group>"; };
+		1191B7081DDD79C6005813A6 /* pListConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pListConverter.swift; sourceTree = "<group>"; };
 		1197B7FA1DD98370006D9F0F /* HistoricalEventsData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HistoricalEventsData.plist; sourceTree = "<group>"; };
 		11A123F31DDA8F6600B9B47B /* BoutTimeGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoutTimeGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,9 +113,11 @@
 				115510AD1DD94768002C7D5C /* LaunchScreen.storyboard */,
 				115510B01DD94768002C7D5C /* Info.plist */,
 				1197B7FA1DD98370006D9F0F /* HistoricalEventsData.plist */,
+				11A123F31DDA8F6600B9B47B /* BoutTimeGame.swift */,
+				1191B7081DDD79C6005813A6 /* pListConverter.swift */,
+				1132D6FD1DDABF880074E1C3 /* PlaySound.swift */,
 				118929641DD9588400337D46 /* Audio */,
 				118929631DD9587000337D46 /* Images */,
-				11A123F31DDA8F6600B9B47B /* BoutTimeGame.swift */,
 			);
 			path = BoutTime;
 			sourceTree = "<group>";
@@ -249,6 +255,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				115510A71DD94768002C7D5C /* ViewController.swift in Sources */,
+				1191B7091DDD79C6005813A6 /* pListConverter.swift in Sources */,
+				1132D6FE1DDABF880074E1C3 /* PlaySound.swift in Sources */,
 				115510A51DD94768002C7D5C /* AppDelegate.swift in Sources */,
 				11A123F41DDA8F6600B9B47B /* BoutTimeGame.swift in Sources */,
 			);
