@@ -7,21 +7,36 @@
 //
 
 import UIKit
+import Foundation
 
 class ViewController: UIViewController {
 
+    //**************************************************
+    //***************** <UI Objects>
+    //**************************************************
     
+    @IBOutlet weak var eventLabel1: UILabel!
+    @IBOutlet weak var eventLabel2: UILabel!
+    @IBOutlet weak var eventLabel3: UILabel!
+    @IBOutlet weak var eventLabel4: UILabel!
     @IBOutlet var eventLabelCollection: [UILabel]!
+    
+    
+    
     
     var soundToPlay = AudioControl()
     var eventCollection: [HistoricalEvent : HistoricalEventItem]
-
+    var boutTimeGamePlay = BoutTimeGame()
+    
     required init?(coder aDecoder: NSCoder) {
         
         do{
             let dictionary = try PListConverter.dictionaryFromFile(resource: "HistoricalEventsData", ofFileType: "plist")
             let eventCollectionDict = try HistoricalEventUnArchiver.HistoryEventFromDictionary(dictionary: dictionary)
             self.eventCollection = eventCollectionDict
+
+            let boutTimeObj = BoutTimeGame(totalNoOfRounds: 6, numEventsPerRound: 4, eventData: eventCollection)
+            self.boutTimeGamePlay = boutTimeObj
             
         } catch let error {
             fatalError("\(error)")
@@ -38,10 +53,11 @@ class ViewController: UIViewController {
         
         // ViewController to become first responder to shake event.
         self.becomeFirstResponder()
-        UIStateFirstLoad()
-        dateExperiment()
+        updateLabelsWithNewEvents()
+        
 
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -55,26 +71,30 @@ class ViewController: UIViewController {
         soundToPlay.correctSound()
     }
     
+    
+    //**************************************************
+    //***************** Helper Methods
+    //**************************************************
+  
 
-    func dateExperiment(){
-        var dateArr = [NSDate]()
+//    func updateLabelText(eventArr: Array<String>){
+//        
+//        for lbl in eventLabelCollection{
+//            lbl.text = "\(eventArr[lbl.tag])"
+//        }
+//    }
+    
+    func updateLabelsWithNewEvents(){
         
-        for event in eventCollection{
-            dateArr.append(event.value.date)
-        }
-
-        print(dateArr.sorted(by: { $0.compare($1 as Date) == .orderedAscending }))
-        
+        for lbl in eventLabelCollection{
+            let event =  boutTimeGamePlay.getUniqueEvent()
+            lbl.text = event[0].description       }
     }
     
-    func UIStateFirstLoad() {
-    // Function loads the default UI state with app is first launched.
-        
-        for label in eventLabelCollection {
-            label.layer.masksToBounds = true
-            label.layer.cornerRadius = 5
-        }
+    @IBAction func test(_ sender: Any) {
+            print(boutTimeGamePlay.getUniqueEvent())
     }
+    
     
 }
 
