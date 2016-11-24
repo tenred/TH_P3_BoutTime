@@ -21,13 +21,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var eventLabel4: UILabel!
     @IBOutlet var eventLabelCollection: [UILabel]!
     
-    
-    
-    
     var soundToPlay = AudioControl()
     var eventCollection: [HistoricalEvent : HistoricalEventItem]
+
     var boutTimeGamePlay = BoutTimeGame()
-    
+    var eventDataForRound: [[HistoricalEvent : HistoricalEventItem]] = []
+
     required init?(coder aDecoder: NSCoder) {
         
         do{
@@ -46,15 +45,13 @@ class ViewController: UIViewController {
     }
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         // ViewController to become first responder to shake event.
         self.becomeFirstResponder()
-        updateLabelsWithNewEvents()
-        
+        newRound()
 
     }
     
@@ -77,22 +74,43 @@ class ViewController: UIViewController {
     //**************************************************
   
 
-//    func updateLabelText(eventArr: Array<String>){
-//        
-//        for lbl in eventLabelCollection{
-//            lbl.text = "\(eventArr[lbl.tag])"
-//        }
-//    }
     
-    func updateLabelsWithNewEvents(){
+    @IBAction func buttonPressed(_ sender: UIButton) {
         
-        for lbl in eventLabelCollection{
-            let event =  boutTimeGamePlay.getUniqueEvent()
-            lbl.text = event[0].description       }
+        let buttonNo: Int = sender.tag
+        
+        do{
+          
+            let actionItems = try boutTimeGamePlay.moveInstructions(btnTagNo: buttonNo)
+            eventDataForRound = boutTimeGamePlay.reorderDataSet(dataSet: eventDataForRound, eventLabel: actionItems.eventLabel, move: actionItems.move)
+            updateLabelsWithEventDescription()
+                        
+        }catch GameError.moveDirectionError {
+            print("Error moving event to next label")
+            
+        }catch {
+            fatalError("BOOM")
+        }
+    
     }
     
-    @IBAction func test(_ sender: Any) {
-            print(boutTimeGamePlay.getUniqueEvent())
+    func newRound(){
+        
+        eventDataForRound = boutTimeGamePlay.getHistoricalEventsForRound()
+        updateLabelsWithEventDescription()
+        
+    }
+
+    
+    func updateLabelsWithEventDescription(){
+        
+        for lbl in eventLabelCollection{
+            let recordForLabel = eventDataForRound[lbl.tag]            
+            for item in recordForLabel{
+                lbl.text = String(item.value.description)
+            }
+            
+        }
     }
     
     

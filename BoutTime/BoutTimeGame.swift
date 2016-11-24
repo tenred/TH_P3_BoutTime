@@ -12,16 +12,16 @@ import AudioToolbox
 
 //Protocols
 protocol BoutTimeGameType{
-
-    var totalNoOfRounds: Int {get set}
-    var numEventsPerRound: Int {get set}
-    var eventDataCollection: [HistoricalEvent: HistoricalEventItem] {get set}
-    var eventDataCurrentRound: [[HistoricalEvent: HistoricalEventItem]] {get set}
-    var eventDataGameHistory: [HistoricalEvent] {get set}
-    
-//    func getUniqueEvent() -> [HistoricalEvent : HistoricalEventItem]
-    func moveEvent(direction: MoveDirection)
-    
+//
+//    var totalNoOfRounds: Int {get set}
+//    var numEventsPerRound: Int {get set}
+//    var eventDataCollection: [HistoricalEvent: HistoricalEventItem] {get set}
+//    var eventDataCurrentRound: [[HistoricalEvent: HistoricalEventItem]] {get set}
+//    var eventDataGameHistory: [HistoricalEvent] {get set}
+//    
+////    func getUniqueEvent() -> [HistoricalEvent : HistoricalEventItem]
+//    func moveEvent(direction: MoveDirection)
+//    
 }
 
 protocol HistoricalEventType{
@@ -56,16 +56,12 @@ enum HistoryEventDataError: Error{
 enum GameError: Error{
     case incorrectSequence
     case noMoreUniqueEvents
+    case moveDirectionError
 }
 
 enum TimerError: Error{
     case OutOfTime
 }
-
-
-
-
-//Helper Classes
 
 
     
@@ -76,7 +72,13 @@ enum HistoricalEvent:Int{
     case event02, event03, event04, event05, event06, event07, event08, event09, event10
     case event11, event12, event13, event14, event15, event16, event17, event18, event19, event20
     case event21, event22, event23, event24, event25
-    
+}
+
+enum EventLabel: Int{
+    case label01 = 0
+    case label02
+    case label03
+    case label04
 }
 
 enum MoveDirection{
@@ -95,10 +97,18 @@ struct HistoricalEventItem: HistoricalEventType {
 
 class BoutTimeGame: BoutTimeGameType{
  
+    //**************************************************
+    //***************** Property Decleration
+    //**************************************************
+    
     var totalNoOfRounds: Int
     var numEventsPerRound: Int
     var eventDataCollection: [HistoricalEvent: HistoricalEventItem]
-    var eventDataCurrentRound: [[HistoricalEvent : HistoricalEventItem]] = []
+//    var eventDataCurrentRound: [[HistoricalEvent : HistoricalEventItem]] = []
+//    var eventDataCurrentRoundUserOrdered: [[HistoricalEvent : HistoricalEventItem]] = []
+    var eventDataCurrentRound: [[HistoricalEvent: HistoricalEventItem]] = []
+    var eventDataCurrentRoundUserOrdered: [HistoricalEvent] = []
+    
     var eventDataGameHistory: [HistoricalEvent] = []
     
     var roundsPlayed = 0
@@ -117,29 +127,100 @@ class BoutTimeGame: BoutTimeGameType{
         self.eventDataCollection = eventData
         
         
-        print(randomizedInt())
     
     }
-    
-    func returnEventDataToDisplay(inRound: Int, atEvent: Int) -> Array<String>{
-        var displayArr: [String] = []
-        var counter: Int = 0
+  
+    func getHistoricalEventsForRound() -> Array<[HistoricalEvent: HistoricalEventItem]> {
+        
+        var roundDataArr: [[HistoricalEvent: HistoricalEventItem]] = []
         
         repeat{
-            let displayString = getUniqueEvent()
             
-            print(displayString)
+            let record = getUniqueEvent()
             
-            counter += 1
-        } while counter != numEventsPerRound
+            if roundDataArr.isEmpty != true {
+                roundDataArr.append(record)
+            } else {
+                roundDataArr.insert(record, at: 0)
+            }
+            
+        } while roundDataArr.count != numEventsPerRound
+    
+        eventDataCurrentRound = roundDataArr
         
-      return displayArr
+        return roundDataArr
+        
+    }
+
+    func moveInstructions(btnTagNo: Int)throws -> (eventLabel:EventLabel, move: MoveDirection){
+            
+        var move: MoveDirection!
+        var lbl: EventLabel!
+    
+        switch btnTagNo {
+        
+        case 0:
+            move = MoveDirection.down
+            lbl = EventLabel.label01
+        case 1:
+            move = MoveDirection.up
+            lbl = EventLabel.label02
+        case 2:
+            move = MoveDirection.down
+            lbl = EventLabel.label02
+        case 3:
+            move = MoveDirection.up
+            lbl = EventLabel.label03
+        case 4:
+            move = MoveDirection.down
+            lbl = EventLabel.label03
+        case 5:
+            move = MoveDirection.up
+            lbl = EventLabel.label04
+        default:
+            throw GameError.moveDirectionError
+        }
+        
+        guard let buttonDirection = move, let eventLabel = lbl else{
+            throw GameError.moveDirectionError
+        }
+        
+        return(eventLabel,buttonDirection)
     }
     
-    func getUniqueEvent() -> [HistoricalEventItem]  {
- 
+    
+    func reorderDataSet(dataSet: Array<[HistoricalEvent: HistoricalEventItem]>, eventLabel:  EventLabel, move: MoveDirection) -> Array<[HistoricalEvent: HistoricalEventItem]>{
+     
+        var reOrdered: [[HistoricalEvent: HistoricalEventItem]] = dataSet
+        let targetedEvent = dataSet[eventLabel.rawValue]
+        var newEventPosition: Int!
+        
+        switch move {
+        case .down:
+            newEventPosition  = eventLabel.rawValue + 1
+            reOrdered.remove(at: eventLabel.rawValue)
+            reOrdered.insert(targetedEvent, at: newEventPosition)
+            
+        case .up:
+            newEventPosition  = eventLabel.rawValue - 1
+            reOrdered.remove(at: eventLabel.rawValue)
+            reOrdered.insert(targetedEvent, at: newEventPosition)
+        }
+        
+        return reOrdered
+    }
+    
+    
+    
+    
+    
+    private func getUniqueEvent() -> [HistoricalEvent: HistoricalEventItem]  {
+        //// Method returns a single unique HistoricalEventItem for the current game
+        //// Method calls randomizedInt() to generate a randome HistoricalEventItem.
+        //// This is checked against hasEventBeenUsedBefore() to determin if HistoricalEventItem has been displayed in any round.
+        
         var eventDisplayedBefore: Bool
-        var dictionary: [HistoricalEventItem] = []
+        var dictionary: [HistoricalEvent: HistoricalEventItem] = [:]
 
 //        var dictionary: [HistoricalEvent : HistoricalEventItem] = [:]
         
@@ -155,8 +236,8 @@ class BoutTimeGame: BoutTimeGameType{
                     
                     if eventDisplayedBefore != true{
                         eventDataGameHistory.append(item)
-                        dictionary = [eventDataCollection[item]!]
-                        
+                        //dictionary = [eventDataCollection[item]!]
+                        dictionary.updateValue(eventDataCollection[item]!, forKey: item)
                     }
                     
                 } catch GameError.noMoreUniqueEvents{
@@ -171,12 +252,17 @@ class BoutTimeGame: BoutTimeGameType{
                 
             }
         } while eventDisplayedBefore == true
-        loggingPrint(dictionary)
+       
         return dictionary
     }
 
     
-    func randomizedInt() -> Int {
+    
+    //**************************************************
+    //***************** Helper Methodss
+    //**************************************************
+    
+    private func randomizedInt() -> Int {
         
         let lowerBound: UInt32 = 1
         let upperBound: UInt32 = UInt32(eventDataCollection.count)
@@ -187,7 +273,7 @@ class BoutTimeGame: BoutTimeGameType{
     }
     
     
-    func hasEventBeenUsedBefore(event: HistoricalEvent) throws -> Bool{
+    private func hasEventBeenUsedBefore(event: HistoricalEvent) throws -> Bool{
         
         var trueOrFalse: Bool = false
 
@@ -208,16 +294,32 @@ class BoutTimeGame: BoutTimeGameType{
     
 
     
-    //    func dateExperiment(){
-    //        var dateArr = [NSDate]()
-    //
-    //        for event in eventCollection{
-    //            dateArr.append(event.value.date)
-    //        }
-    //
-    //        print(dateArr.sorted(by: { $0.compare($1 as Date) == .orderedAscending }))
-    //        
-    //    }
+//    private func sortRoundByDate(){
+//        
+//        var count = 0
+//        
+//        repeat{
+//            
+//            let
+//            count += 1
+//            
+//        } while eventDataCurrentRound.count != count
+//        
+//        for event in eventDataCurrentRound {
+//            
+//            let record = event
+//            
+//        }
+//        
+//        var dateArr = [NSDate]()
+//    
+//            for event in eventCollection{
+//                dateArr.append(event.value.date)
+//            }
+//    
+//            print(dateArr.sorted(by: { $0.compare($1 as Date) == .orderedAscending }))
+//            
+//        }
 
     
     

@@ -38,7 +38,6 @@
 		1191B7091DDD79C6005813A6 /* pListConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1191B7081DDD79C6005813A6 /* pListConverter.swift */; };
 		1197B7FB1DD98370006D9F0F /* HistoricalEventsData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1197B7FA1DD98370006D9F0F /* HistoricalEventsData.plist */; };
 		11A123F41DDA8F6600B9B47B /* BoutTimeGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A123F31DDA8F6600B9B47B /* BoutTimeGame.swift */; };
-		11B2A70D1DE2B384007453BD /* CustomUIAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B2A70C1DE2B384007453BD /* CustomUIAttributes.swift */; };
 		11B2A70F1DE402D2007453BD /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B2A70E1DE402D2007453BD /* Logger.swift */; };
 /* End PBXBuildFile section */
 
@@ -76,7 +75,6 @@
 		1191B7081DDD79C6005813A6 /* pListConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pListConverter.swift; sourceTree = "<group>"; };
 		1197B7FA1DD98370006D9F0F /* HistoricalEventsData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HistoricalEventsData.plist; sourceTree = "<group>"; };
 		11A123F31DDA8F6600B9B47B /* BoutTimeGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoutTimeGame.swift; sourceTree = "<group>"; };
-		11B2A70C1DE2B384007453BD /* CustomUIAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUIAttributes.swift; sourceTree = "<group>"; };
 		11B2A70E1DE402D2007453BD /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,7 +118,6 @@
 				11A123F31DDA8F6600B9B47B /* BoutTimeGame.swift */,
 				1191B7081DDD79C6005813A6 /* pListConverter.swift */,
 				1132D6FD1DDABF880074E1C3 /* PlaySound.swift */,
-				11B2A70C1DE2B384007453BD /* CustomUIAttributes.swift */,
 				11B2A70E1DE402D2007453BD /* Logger.swift */,
 				118929641DD9588400337D46 /* Audio */,
 				118929631DD9587000337D46 /* Images */,
@@ -266,7 +263,6 @@
 				115510A51DD94768002C7D5C /* AppDelegate.swift in Sources */,
 				11B2A70F1DE402D2007453BD /* Logger.swift in Sources */,
 				11A123F41DDA8F6600B9B47B /* BoutTimeGame.swift in Sources */,
-				11B2A70D1DE2B384007453BD /* CustomUIAttributes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
