@@ -21,10 +21,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var eventLabel4: UILabel!
     @IBOutlet var eventLabelCollection: [UILabel]!
     
+    @IBOutlet var eventButtonCollection: [UIButton]!
+    
+    @IBOutlet weak var nextRoundButton: UIButton!
+    @IBOutlet weak var timerLabel: UILabel!
+    
     var soundToPlay = AudioControl()
     var eventCollection: [HistoricalEvent : HistoricalEventItem]
 
-    var boutTimeGamePlay = BoutTimeGame()
+    var boutTime = BoutTimeGame()
     var eventDataForRound: [[HistoricalEvent : HistoricalEventItem]] = []
 
     required init?(coder aDecoder: NSCoder) {
@@ -35,7 +40,7 @@ class ViewController: UIViewController {
             self.eventCollection = eventCollectionDict
 
             let boutTimeObj = BoutTimeGame(totalNoOfRounds: 6, numEventsPerRound: 4, eventData: eventCollection)
-            self.boutTimeGamePlay = boutTimeObj
+            self.boutTime = boutTimeObj
             
         } catch let error {
             fatalError("\(error)")
@@ -51,6 +56,7 @@ class ViewController: UIViewController {
         
         // ViewController to become first responder to shake event.
         self.becomeFirstResponder()
+        changeUIState(gameState: .newGame, isRoundCorrect: nil)
         newRound()
 
     }
@@ -65,7 +71,15 @@ class ViewController: UIViewController {
         //Override function to respond to shake action.
         
         print("Shakey Shakey")
+        
+        if boutTime.isGameOver(){
+            gameOver()
+        } else {
+            checkAnswer()
+        }
+        
         soundToPlay.correctSound()
+        
     }
     
     
@@ -73,31 +87,75 @@ class ViewController: UIViewController {
     //***************** Helper Methods
     //**************************************************
   
+    
+    @IBAction func buttonSelected(sender: UIButton) {
+    
+        //let button = buttonAttributes(tagNo: sender.tag, state: ButtonState.selected)
+        
+        //sender.setImage(button.stateImage, for: .selected)
+        
+        
+//        let moveDirection: MoveDirection
+//        let buttonSize: ButtonSize
+//        
+//        do{
+//            
+//            let buttonState = try boutTime.getButtonLabelInfo(btnTagNo: sender.tag)
+//            
+//            moveDirection = buttonState.move
+//            buttonSize = buttonState.size
+//            
+//        } catch GameError.moveDirectionError {
+//            print("Error moving event to next label")
+//
+//        }catch {
+//            fatalError("BOOM")
+//        }
+//        
+//        
+    }
 
     
     @IBAction func buttonPressed(_ sender: UIButton) {
         
-        let buttonNo: Int = sender.tag
-        
-        do{
+        //do{
           
-            let actionItems = try boutTimeGamePlay.moveInstructions(btnTagNo: buttonNo)
-            eventDataForRound = boutTimeGamePlay.reorderDataSet(dataSet: eventDataForRound, eventLabel: actionItems.eventLabel, move: actionItems.move)
-            updateLabelsWithEventDescription()
-                        
-        }catch GameError.moveDirectionError {
-            print("Error moving event to next label")
+            let buttonInfo = buttonAttributes(tagNo: sender.tag)
+            //let actionItems = try boutTime.getButtonLabelInfo(btnTagNo: sender.tag)
+            //eventDataForRound = boutTime.moveDataSet(dataSet: eventDataForRound, eventLabel: actionItems.eventLabel, move: actionItems.move)
             
-        }catch {
-            fatalError("BOOM")
-        }
+            eventDataForRound = boutTime.moveDataSet(dataSet: eventDataForRound, eventLabel: buttonInfo.associatedLabel, move: buttonInfo.direction)
+
+            updateLabelsWithEventDescription()
+//                        
+//        }catch GameError.moveDirectionError {
+//            print("Error moving event to next label")
+//            
+//        }catch {
+//            fatalError("BOOM")
+//        }
     
     }
     
-    func newRound(){
+    func checkAnswer(){
         
-        eventDataForRound = boutTimeGamePlay.getHistoricalEventsForRound()
+        let checkUserAnswer = boutTime.checkSubmittedAnswer(userOrder: eventDataForRound)
+        let isRoundCorrect = checkUserAnswer.isRoundCorrect
+        let wrongAnswers: [Int]? = checkUserAnswer.wrongAnswers
+        
+        changeUIState(gameState: .answerSubmitted, isRoundCorrect: isRoundCorrect)
+        
+    }
+    
+    
+    @IBAction func newRound(){
+        boutTime.incrementRoundCount()
+        eventDataForRound = boutTime.getHistoricalEventsForRound()
         updateLabelsWithEventDescription()
+        changeUIState(gameState: .newRound, isRoundCorrect: nil)
+    }
+    
+    func gameOver(){
         
     }
 
@@ -113,6 +171,55 @@ class ViewController: UIViewController {
         }
     }
     
-    
-}
+    func changeUIState(gameState: gameUIState, isRoundCorrect: Bool?){
+        
+        switch gameState {
+            
+        case .newGame:
+        setButtonSelectImage()
+        
+        case .newRound:
+            nextRoundButton.isHidden = true
+            timerLabel.isHidden = false
+            
+        case .answerSubmitted:
+            if let isRoundCorrect = isRoundCorrect{
+                nextRoundButton.setImage(nextRoundButtonBGImage(isRoundCorrect: isRoundCorrect), for: .normal)
+            }
+            
+            nextRoundButton.isHidden = false
+            timerLabel.isHidden = true
+            
 
+        default:
+            break
+        }
+    }
+    
+
+    func setButtonSelectImage(){
+
+        for button in eventButtonCollection{
+            let buttonAttribs = buttonAttributes(tagNo: button.tag)
+            let move: MoveDirection = buttonAttribs.direction
+            let size: ButtonSize = buttonAttribs.size
+            
+            let buttonSelectImage = buttonAttribs.stateImage(btnDirection: move, btnPressState: .highlighted, btnSize: size)
+            button.setImage(buttonSelectImage, for: .highlighted)
+        }
+    }
+    
+    func nextRoundButtonBGImage(isRoundCorrect: Bool) -> UIImage{
+        
+        let success: UIImage = #imageLiteral(resourceName: "next_round_success.png")
+        let fail: UIImage = #imageLiteral(resourceName: "next_round_fail.png")
+    
+        if isRoundCorrect{
+            return success
+        } else {
+            return fail
+        }
+    }
+
+
+}

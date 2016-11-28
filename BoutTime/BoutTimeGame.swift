@@ -86,6 +86,27 @@ enum MoveDirection{
     case down
 }
 
+enum ButtonSize{
+    case full
+    case half
+}
+
+enum ButtonState{
+    case normal
+    case highlighted
+}
+
+
+enum gameUIState{
+    case newRound
+    case newGame
+    case shakeyShakey
+    case answerSubmitted
+    case wrongAnswer
+    case correctAnswer
+    
+}
+
 
 struct HistoricalEventItem: HistoricalEventType {
         
@@ -94,6 +115,179 @@ struct HistoricalEventItem: HistoricalEventType {
     var date: NSDate
     var seqNo: Int
 }
+
+
+struct buttonAttributes {
+    
+    var direction: MoveDirection!
+    var size: ButtonSize!
+    var associatedLabel: EventLabel!
+    //var stateImage: UIImage!
+    
+    init(tagNo: Int /*, state: ButtonState */){
+    
+        do{
+            self.direction = try btnDirection(tag: tagNo)
+            self.size = btnSize(tag: tagNo)
+            self.associatedLabel = try associatedLabel(tag: tagNo)
+            //self.stateImage = try stateImage(btnDirection: self.direction, btnPressState: state, btnSize: self.size)
+            
+        } catch {
+            print("Error gathering Button Infor")
+            fatalError("BOOM")
+        }
+    }
+    
+    private func btnDirection(tag: Int)throws -> MoveDirection{
+        
+        switch tag{
+        case 0,2,4:
+            return MoveDirection.down
+        case 1,3,5:
+            return MoveDirection.up
+        default:
+            throw GameError.moveDirectionError
+        }
+    }
+    
+    private func btnSize(tag: Int) -> ButtonSize{
+      
+        switch tag{
+        case 0,5:
+            return ButtonSize.full
+        default:
+            return ButtonSize.half
+        }
+    }
+    
+    private func associatedLabel(tag: Int)throws -> EventLabel{
+        
+        switch tag{
+        case 0:
+            return EventLabel.label01
+            
+        case 1,2:
+            return EventLabel.label02
+            
+        case 3,4:
+            return EventLabel.label03
+            
+        case 5:
+            return EventLabel.label04
+            
+        default:
+            throw GameError.moveDirectionError
+            
+        }
+    }
+    
+    
+    func stateImage(btnDirection: MoveDirection, btnPressState: ButtonState, btnSize: ButtonSize) -> UIImage{
+        
+        var buttonImage: UIImage!
+        
+        let normal_up_full: UIImage = #imageLiteral(resourceName: "up_full.png")
+        let normal_up_half: UIImage = #imageLiteral(resourceName: "up_half.png")
+        let normal_down_full: UIImage = #imageLiteral(resourceName: "down_full.png")
+        let normal_down_half: UIImage = #imageLiteral(resourceName: "down_half.png")
+        
+        let selected_up_full: UIImage = #imageLiteral(resourceName: "up_full_selected.png")
+        let selected_up_half: UIImage = #imageLiteral(resourceName: "up_half_selected.png")
+        let selected_down_full: UIImage = #imageLiteral(resourceName: "down_full_selected.png")
+        let selected_down_half: UIImage = #imageLiteral(resourceName: "down_half_selected.png")
+        
+        if btnPressState == ButtonState.normal{
+            
+            switch (btnDirection, btnSize) {
+            
+            case (MoveDirection.up, ButtonSize.full):
+                buttonImage = normal_up_full
+            case (MoveDirection.up, ButtonSize.half):
+                buttonImage = normal_up_half
+            case (MoveDirection.down, ButtonSize.full):
+                buttonImage = normal_down_full
+            case (MoveDirection.down, ButtonSize.half):
+                buttonImage = normal_down_half
+            }
+            
+        }
+        
+        if btnPressState == ButtonState.highlighted{
+            
+            switch (btnDirection, btnSize) {
+                
+            case (MoveDirection.up, ButtonSize.full):
+                buttonImage = selected_up_full
+            case (MoveDirection.up, ButtonSize.half):
+                buttonImage = selected_up_half
+            case (MoveDirection.down, ButtonSize.full):
+                buttonImage = selected_down_full
+            case (MoveDirection.down, ButtonSize.half):
+                buttonImage = selected_down_half
+            }
+            
+        }
+
+    return buttonImage
+        
+    }
+}
+
+
+    
+    
+//    private func mapping(btnTagNo: Int)throws -> (eventLabel:EventLabel, move: MoveDirection, size: ButtonSize){
+//        
+//        var move: MoveDirection!
+//        var lbl: EventLabel!
+//        var btnSize: ButtonSize!
+//        
+//        switch btnTagNo {
+//            
+//        case 0:
+//            move = MoveDirection.down
+//            lbl = EventLabel.label01
+//            btnSize = ButtonSize.full
+//            
+//        case 1:
+//            move = MoveDirection.up
+//            lbl = EventLabel.label02
+//            btnSize = ButtonSize.half
+//            
+//        case 2:
+//            move = MoveDirection.down
+//            lbl = EventLabel.label02
+//            btnSize = ButtonSize.half
+//            
+//        case 3:
+//            move = MoveDirection.up
+//            lbl = EventLabel.label03
+//            btnSize = ButtonSize.half
+//            
+//        case 4:
+//            move = MoveDirection.down
+//            lbl = EventLabel.label03
+//            btnSize = ButtonSize.half
+//            
+//        case 5:
+//            move = MoveDirection.up
+//            lbl = EventLabel.label04
+//            btnSize = ButtonSize.full
+//            
+//        default:
+//            throw GameError.moveDirectionError
+//        }
+//        
+//        guard let buttonDirection = move, let eventLabel = lbl, let size = btnSize else{
+//            throw GameError.moveDirectionError
+//        }
+//        
+//        return(eventLabel,buttonDirection,size)
+//    }
+
+    
+
+
 
 class BoutTimeGame: BoutTimeGameType{
  
@@ -104,8 +298,6 @@ class BoutTimeGame: BoutTimeGameType{
     var totalNoOfRounds: Int
     var numEventsPerRound: Int
     var eventDataCollection: [HistoricalEvent: HistoricalEventItem]
-//    var eventDataCurrentRound: [[HistoricalEvent : HistoricalEventItem]] = []
-//    var eventDataCurrentRoundUserOrdered: [[HistoricalEvent : HistoricalEventItem]] = []
     var eventDataCurrentRound: [[HistoricalEvent: HistoricalEventItem]] = []
     var eventDataCurrentRoundUserOrdered: [HistoricalEvent] = []
     
@@ -125,9 +317,6 @@ class BoutTimeGame: BoutTimeGameType{
         self.totalNoOfRounds = totalNoOfRounds
         self.numEventsPerRound = numEventsPerRound
         self.eventDataCollection = eventData
-        
-        
-    
     }
   
     func getHistoricalEventsForRound() -> Array<[HistoricalEvent: HistoricalEventItem]> {
@@ -152,44 +341,57 @@ class BoutTimeGame: BoutTimeGameType{
         
     }
 
-    func moveInstructions(btnTagNo: Int)throws -> (eventLabel:EventLabel, move: MoveDirection){
-            
-        var move: MoveDirection!
-        var lbl: EventLabel!
+//    func getButtonLabelInfo(btnTagNo: Int)throws -> (eventLabel:EventLabel, move: MoveDirection, size: ButtonSize){
+//            
+//        var move: MoveDirection!
+//        var lbl: EventLabel!
+//        var btnSize: ButtonSize!
+//    
+//        switch btnTagNo {
+//        
+//        case 0:
+//            move = MoveDirection.down
+//            lbl = EventLabel.label01
+//            btnSize = ButtonSize.full
+//            
+//        case 1:
+//            move = MoveDirection.up
+//            lbl = EventLabel.label02
+//            btnSize = ButtonSize.half
+//
+//        case 2:
+//            move = MoveDirection.down
+//            lbl = EventLabel.label02
+//            btnSize = ButtonSize.half
+//
+//        case 3:
+//            move = MoveDirection.up
+//            lbl = EventLabel.label03
+//            btnSize = ButtonSize.half
+//
+//        case 4:
+//            move = MoveDirection.down
+//            lbl = EventLabel.label03
+//            btnSize = ButtonSize.half
+//
+//        case 5:
+//            move = MoveDirection.up
+//            lbl = EventLabel.label04
+//            btnSize = ButtonSize.full
+//
+//        default:
+//            throw GameError.moveDirectionError
+//        }
+//        
+//        guard let buttonDirection = move, let eventLabel = lbl, let size = btnSize else{
+//            throw GameError.moveDirectionError
+//        }
+//        
+//        return(eventLabel,buttonDirection,size)
+//    }
     
-        switch btnTagNo {
-        
-        case 0:
-            move = MoveDirection.down
-            lbl = EventLabel.label01
-        case 1:
-            move = MoveDirection.up
-            lbl = EventLabel.label02
-        case 2:
-            move = MoveDirection.down
-            lbl = EventLabel.label02
-        case 3:
-            move = MoveDirection.up
-            lbl = EventLabel.label03
-        case 4:
-            move = MoveDirection.down
-            lbl = EventLabel.label03
-        case 5:
-            move = MoveDirection.up
-            lbl = EventLabel.label04
-        default:
-            throw GameError.moveDirectionError
-        }
-        
-        guard let buttonDirection = move, let eventLabel = lbl else{
-            throw GameError.moveDirectionError
-        }
-        
-        return(eventLabel,buttonDirection)
-    }
     
-    
-    func reorderDataSet(dataSet: Array<[HistoricalEvent: HistoricalEventItem]>, eventLabel:  EventLabel, move: MoveDirection) -> Array<[HistoricalEvent: HistoricalEventItem]>{
+    func moveDataSet(dataSet: Array<[HistoricalEvent: HistoricalEventItem]>, eventLabel:  EventLabel, move: MoveDirection) -> Array<[HistoricalEvent: HistoricalEventItem]>{
      
         var reOrdered: [[HistoricalEvent: HistoricalEventItem]] = dataSet
         let targetedEvent = dataSet[eventLabel.rawValue]
@@ -210,9 +412,84 @@ class BoutTimeGame: BoutTimeGameType{
         return reOrdered
     }
     
+    func isGameOver() -> Bool{
+        
+        var trueOrFalse: Bool = false
+        
+        if totalNoOfRounds == roundsPlayed {
+            trueOrFalse = true
+        }
+        
+        return trueOrFalse
+    }
     
+    func checkSubmittedAnswer(userOrder: Array<[HistoricalEvent: HistoricalEventItem]>) -> (isRoundCorrect: Bool, wrongAnswers: [Int]) {
+        
+        let answerArr = getRoundAnswerInDateOrder()
+        var isCorrect = true
+        var wrongAnswer: [Int] = []
+        
+        var count = 0
+        
+        for event in userOrder{
+            
+            for item in event{
+                
+                if answerArr[count] != item.value.seqNo{
+                    isCorrect = false
+                    wrongAnswer.append(item.value.seqNo)
+                } else {
+                    correctRounds += 1
+                }
+
+            }
+            count += 1
+        }
+        
+        loggingPrint(isCorrect)
+        loggingPrint(wrongAnswer)
+        
+        return (isCorrect, wrongAnswer)
+    }
     
+    //**************************************************
+    //***************** Helper Methodss
+    //**************************************************
     
+    func incrementRoundCount(){
+        
+        roundsPlayed += 1
+        
+    }
+    
+    private func getRoundAnswerInDateOrder() -> Array<Int> {
+
+        var SeqDateDict: [NSDate:Int] = [:]
+        var answerKey: [Int] = []
+        for event in eventDataCurrentRound{
+            
+            for item in event{
+                let seqNo = item.value.seqNo
+                let date = item.value.date
+                
+                SeqDateDict.updateValue(seqNo, forKey: date)
+            }
+            
+        }
+        
+        
+        let SeqDateDictSorted = SeqDateDict.sorted{ $0.0.compare($1.0 as Date) == .orderedAscending}
+            
+            for item in SeqDateDictSorted{
+                answerKey.append(item.value)
+            }
+            
+        return answerKey
+
+    }
+    
+
+        
     
     private func getUniqueEvent() -> [HistoricalEvent: HistoricalEventItem]  {
         //// Method returns a single unique HistoricalEventItem for the current game
@@ -221,8 +498,6 @@ class BoutTimeGame: BoutTimeGameType{
         
         var eventDisplayedBefore: Bool
         var dictionary: [HistoricalEvent: HistoricalEventItem] = [:]
-
-//        var dictionary: [HistoricalEvent : HistoricalEventItem] = [:]
         
         repeat{
             eventDisplayedBefore = false
@@ -247,7 +522,7 @@ class BoutTimeGame: BoutTimeGameType{
                     eventDataGameHistory.removeAll()
         
                 } catch {
-                    fatalError("Boom")
+                    fatalError("BOOM")
                 }
                 
             }
@@ -255,12 +530,6 @@ class BoutTimeGame: BoutTimeGameType{
        
         return dictionary
     }
-
-    
-    
-    //**************************************************
-    //***************** Helper Methodss
-    //**************************************************
     
     private func randomizedInt() -> Int {
         
@@ -278,9 +547,7 @@ class BoutTimeGame: BoutTimeGameType{
         var trueOrFalse: Bool = false
 
         for record in eventDataGameHistory{
-            
             if record == event {
-                
                 trueOrFalse = true
             }
         }
@@ -291,42 +558,6 @@ class BoutTimeGame: BoutTimeGameType{
         
         return trueOrFalse
     }
-    
-
-    
-//    private func sortRoundByDate(){
-//        
-//        var count = 0
-//        
-//        repeat{
-//            
-//            let
-//            count += 1
-//            
-//        } while eventDataCurrentRound.count != count
-//        
-//        for event in eventDataCurrentRound {
-//            
-//            let record = event
-//            
-//        }
-//        
-//        var dateArr = [NSDate]()
-//    
-//            for event in eventCollection{
-//                dateArr.append(event.value.date)
-//            }
-//    
-//            print(dateArr.sorted(by: { $0.compare($1 as Date) == .orderedAscending }))
-//            
-//        }
-
-    
-    
-    func moveEvent(direction: MoveDirection){
-        
-    }
-    
     
 }
 

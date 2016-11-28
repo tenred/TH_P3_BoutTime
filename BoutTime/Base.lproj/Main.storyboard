@@ -37,6 +37,7 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="TEQ-w4-IYv">
@@ -52,6 +53,7 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="LFD-H1-a4k">
@@ -67,6 +69,7 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="GE8-g4-5gL">
@@ -82,6 +85,7 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jB7-k7-1oH">
@@ -152,6 +156,9 @@
                                     <constraint firstAttribute="width" constant="211" id="f0y-QJ-dmp"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="next_round_success.png"/>
+                                <connections>
+                                    <action selector="newRound" destination="BYZ-38-t0r" eventType="touchUpInside" id="on3-K0-D0A"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.160543292760849" blue="0.29570049047470093" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -205,10 +212,18 @@
                         <outlet property="eventLabel2" destination="TEQ-w4-IYv" id="Tj0-Ly-nNo"/>
                         <outlet property="eventLabel3" destination="LFD-H1-a4k" id="b4V-p2-ega"/>
                         <outlet property="eventLabel4" destination="GE8-g4-5gL" id="QKg-tA-FE8"/>
+                        <outlet property="nextRoundButton" destination="uDQ-Ky-vmA" id="2Ww-6A-JO7"/>
+                        <outlet property="timerLabel" destination="ARr-g9-a1Y" id="3k6-9r-4hj"/>
                         <outletCollection property="eventLabelCollection" destination="sPh-S9-okF" collectionClass="NSMutableArray" id="sga-Ky-hOO"/>
                         <outletCollection property="eventLabelCollection" destination="TEQ-w4-IYv" collectionClass="NSMutableArray" id="5qA-jo-FRh"/>
                         <outletCollection property="eventLabelCollection" destination="LFD-H1-a4k" collectionClass="NSMutableArray" id="DJ3-Ow-Hc3"/>
                         <outletCollection property="eventLabelCollection" destination="GE8-g4-5gL" collectionClass="NSMutableArray" id="UWv-qm-I95"/>
+                        <outletCollection property="eventButtonCollection" destination="RnN-nr-Tn3" collectionClass="NSMutableArray" id="TD5-eB-5ld"/>
+                        <outletCollection property="eventButtonCollection" destination="NQf-6a-u4I" collectionClass="NSMutableArray" id="R3y-ab-p3Z"/>
+                        <outletCollection property="eventButtonCollection" destination="YNE-BJ-Jw6" collectionClass="NSMutableArray" id="OYH-AD-PQd"/>
+                        <outletCollection property="eventButtonCollection" destination="jB7-k7-1oH" collectionClass="NSMutableArray" id="LdJ-7a-S5i"/>
+                        <outletCollection property="eventButtonCollection" destination="1hA-e3-SnX" collectionClass="NSMutableArray" id="uFL-2Y-BDL"/>
+                        <outletCollection property="eventButtonCollection" destination="Yny-lg-ibm" collectionClass="NSMutableArray" id="0RZ-ED-1In"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
