@@ -40,7 +40,7 @@ class HistoricalEventUnArchiver{
         
         var eventCollection: [HistoricalEvent: HistoricalEventItem] = [:]
         var date: NSDate
-        var URL: NSURL
+        var URL: String
         var seqNo: Int
         
 //**************************************************
@@ -88,7 +88,7 @@ class HistoricalEventUnArchiver{
                 do{
                     date = try convertStringToDate(str: dateStr)
                     seqNo = try convertSeqToInt(str: seqNoStr)
-                    URL = NSURL(fileURLWithPath: URLstr)
+                    URL = URLstr
                     
                 } catch let error{
                     fatalError("\(error)")

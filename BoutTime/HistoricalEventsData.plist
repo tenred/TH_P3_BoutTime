@@ -42,7 +42,7 @@
 		<key>seqNo</key>
 		<string>4</string>
 		<key>eventDescription</key>
-		<string>Springfield gets filled with too much garbage, causing them to moving every building at least 5 miles down the road.</string>
+		<string>Springfield gets flooded with too much garbage.</string>
 		<key>date</key>
 		<string>1998-09-06T06:35:31Z</string>
 	</dict>
@@ -64,7 +64,7 @@
 		<key>seqNo</key>
 		<string>6</string>
 		<key>eventDescription</key>
-		<string>Bart and Lisa try to make their own Itchy and Scratchy cartoon. Meanwhile, Homer takes a test to graduate high school and passes</string>
+		<string>Bart and Lisa try to make their own Itchy and Scratchy cartoon.</string>
 		<key>date</key>
 		<string>1993-04-15T06:35:31Z</string>
 	</dict>
@@ -97,7 +97,7 @@
 		<key>seqNo</key>
 		<string>9</string>
 		<key>eventDescription</key>
-		<string> Lady Gaga pays a visit to Springfield to help everyone feel better about themselves.</string>
+		<string> Lady Gaga pays a visit to Springfield.</string>
 		<key>date</key>
 		<string>2012-05-20T06:35:31Z</string>
 	</dict>
@@ -130,7 +130,7 @@
 		<key>seqNo</key>
 		<string>12</string>
 		<key>eventDescription</key>
-		<string>Sideshow Bob frames Krusty for armed robbery. Bart exposes Sideshow Bob, who then gets arrested.</string>
+		<string>Sideshow Bob frames Krusty for armed robbery.</string>
 		<key>date</key>
 		<string>1990-04-22T06:35:31Z</string>
 	</dict>
@@ -152,7 +152,7 @@
 		<key>seqNo</key>
 		<string>14</string>
 		<key>eventDescription</key>
-		<string>After trying to block out the sun, Mr. Burns gets shot. Maggie is revealed to be the shooter.</string>
+		<string>Mr. Burns gets shot by Maggie.</string>
 		<key>date</key>
 		<string>1995-09-17T06:35:31Z</string>
 	</dict>
@@ -163,7 +163,7 @@
 		<key>seqNo</key>
 		<string>15</string>
 		<key>eventDescription</key>
-		<string>After World War 2, Mr. Burns is given the world&apos;s only trillion dollar bill to give to Europe to pay for reconstruction. However, the 1 trillion dollars never came.</string>
+		<string>Mr. Burns steals a trillion dollar bill.</string>
 		<key>date</key>
 		<string>1998-04-05T06:35:31Z</string>
 	</dict>
@@ -174,7 +174,7 @@
 		<key>seqNo</key>
 		<string>16</string>
 		<key>eventDescription</key>
-		<string> After an important achievement test, Bart is pushed down to the third grade, and Lisa is pushed up to the third grade.</string>
+		<string>Bart is pushed down and Lisa is pushed up to the third grade.</string>
 		<key>date</key>
 		<string>1990-10-11T06:35:31Z</string>
 	</dict>
@@ -185,7 +185,7 @@
 		<key>seqNo</key>
 		<string>17</string>
 		<key>eventDescription</key>
-		<string>The 55th annual Donkey Basketball game is held at Springfield Elementary School.</string>
+		<string>The 55th annual Donkey Basketball game is held.</string>
 		<key>date</key>
 		<string>2004-12-23T05:35:31Z</string>
 	</dict>
@@ -196,7 +196,7 @@
 		<key>seqNo</key>
 		<string>18</string>
 		<key>eventDescription</key>
-		<string>After a prank gone horribly wrong, Bart and Lisa believe that they have killed Martin Prince and are turning into monsters.</string>
+		<string>Bart and Lisa believe that they have killed Martin Prince.</string>
 		<key>date</key>
 		<string>2008-03-09T05:35:31Z</string>
 	</dict>
@@ -207,7 +207,7 @@
 		<key>seqNo</key>
 		<string>19</string>
 		<key>eventDescription</key>
-		<string>Homer and Marge take Bart and Lisa to Waverly Hills where they can get a better education.</string>
+		<string>Homer and Marge take Bart and Lisa to Waverly Hills for a better education.</string>
 		<key>date</key>
 		<string>2009-05-03T06:35:31Z</string>
 	</dict>
@@ -229,7 +229,7 @@
 		<key>seqNo</key>
 		<string>21</string>
 		<key>eventDescription</key>
-		<string>Bart goes to a Murder 4 Life rap concert in Springfield. He fakes being kidnapped as an alibi so Homer and Marge won&apos;t know he went.</string>
+		<string>Bart fakes being kidnapped as an alibi to get out of trouble.</string>
 		<key>date</key>
 		<string>2005-02-13T05:35:31Z</string>
 	</dict>
@@ -240,7 +240,7 @@
 		<key>seqNo</key>
 		<string>22</string>
 		<key>eventDescription</key>
-		<string>Ned&apos;s wife, Maude Flanders dies. Ned Flanders is very sad</string>
+		<string>Ned&apos;s wife, Maude Flanders dies.</string>
 		<key>date</key>
 		<string>2000-02-13T05:35:31Z</string>
 	</dict>
@@ -251,7 +251,7 @@
 		<key>seqNo</key>
 		<string>23</string>
 		<key>eventDescription</key>
-		<string> At 12:15 AM, The Nahasapeemapetilon Octuplets are born</string>
+		<string>The Nahasapeemapetilon Octuplets are born.</string>
 		<key>date</key>
 		<string>1999-11-21T05:35:31Z</string>
 	</dict>
@@ -273,7 +273,7 @@
 		<key>seqNo</key>
 		<string>25</string>
 		<key>eventDescription</key>
-		<string>A third main character, Poochie, is introduced into The Itchy &amp; Scratchy Show.</string>
+		<string>Poochie is introduced into The Itchy &amp; Scratchy Show.</string>
 		<key>date</key>
 		<string>1997-02-09T05:35:31Z</string>
 	</dict>

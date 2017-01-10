@@ -20,17 +20,29 @@ class ViewController: UIViewController {
     @IBOutlet weak var eventLabel3: UILabel!
     @IBOutlet weak var eventLabel4: UILabel!
     @IBOutlet var eventLabelCollection: [UILabel]!
-    
-    @IBOutlet var eventButtonCollection: [UIButton]!
-    
-    @IBOutlet weak var nextRoundButton: UIButton!
     @IBOutlet weak var timerLabel: UILabel!
+    @IBOutlet weak var shakeTextLabel: UILabel!
+    @IBOutlet weak var earliestTextLabel: UILabel!
+    @IBOutlet weak var latestTextLabel: UILabel!
+
+    @IBOutlet var eventButtonCollection: [UIButton]!
+    @IBOutlet weak var nextRoundButton: UIButton!
+    
+    @IBOutlet weak var yourScoreLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var playAgainButton: UIButton!
+    
     
     var soundToPlay = AudioControl()
-    var eventCollection: [HistoricalEvent : HistoricalEventItem]
+    
+    var timerInterval: Timer!
+    var roundTimer = CountdownTimer(totalTimeInSecs: 60)
 
     var boutTime = BoutTimeGame()
+
+    var eventCollection: [HistoricalEvent : HistoricalEventItem]
     var eventDataForRound: [[HistoricalEvent : HistoricalEventItem]] = []
+    var infoURL: String?
 
     required init?(coder aDecoder: NSCoder) {
         
@@ -56,11 +68,9 @@ class ViewController: UIViewController {
         
         // ViewController to become first responder to shake event.
         self.becomeFirstResponder()
-        changeUIState(gameState: .newGame, isRoundCorrect: nil)
-        newRound()
-
+        NewGame()
+ 
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -71,16 +81,12 @@ class ViewController: UIViewController {
         //Override function to respond to shake action.
         
         print("Shakey Shakey")
-        
-        if boutTime.isGameOver(){
-            gameOver()
-        } else {
-            checkAnswer()
-        }
-        
-        soundToPlay.correctSound()
+     
+        stopTimer()
+        checkAnswer()
         
     }
+    
     
     
     //**************************************************
@@ -88,54 +94,49 @@ class ViewController: UIViewController {
     //**************************************************
   
     
-    @IBAction func buttonSelected(sender: UIButton) {
-    
-        //let button = buttonAttributes(tagNo: sender.tag, state: ButtonState.selected)
-        
-        //sender.setImage(button.stateImage, for: .selected)
-        
-        
-//        let moveDirection: MoveDirection
-//        let buttonSize: ButtonSize
-//        
-//        do{
-//            
-//            let buttonState = try boutTime.getButtonLabelInfo(btnTagNo: sender.tag)
-//            
-//            moveDirection = buttonState.move
-//            buttonSize = buttonState.size
-//            
-//        } catch GameError.moveDirectionError {
-//            print("Error moving event to next label")
-//
-//        }catch {
-//            fatalError("BOOM")
-//        }
-//        
-//        
-    }
-
-    
     @IBAction func buttonPressed(_ sender: UIButton) {
         
-        //do{
-          
             let buttonInfo = buttonAttributes(tagNo: sender.tag)
-            //let actionItems = try boutTime.getButtonLabelInfo(btnTagNo: sender.tag)
-            //eventDataForRound = boutTime.moveDataSet(dataSet: eventDataForRound, eventLabel: actionItems.eventLabel, move: actionItems.move)
-            
             eventDataForRound = boutTime.moveDataSet(dataSet: eventDataForRound, eventLabel: buttonInfo.associatedLabel, move: buttonInfo.direction)
-
             updateLabelsWithEventDescription()
-//                        
-//        }catch GameError.moveDirectionError {
-//            print("Error moving event to next label")
-//            
-//        }catch {
-//            fatalError("BOOM")
-//        }
     
     }
+    
+    func makeLabelsInteractive(pressable: Bool){
+        
+            for label in eventLabelCollection{
+                
+                let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.labelPressed))
+                
+                if pressable {
+                    print("Adding Label Gestures")
+                    label.addGestureRecognizer(gestureRecognizer)
+                } else{
+                    print("Removing Label Gestures")
+                    label.gestureRecognizers?.removeAll()
+                }
+            }
+    }
+    
+    func labelPressed(sender: UIGestureRecognizer){
+        
+        if let labelNo = sender.view?.tag {
+            GetTheEventURL(labelNo: labelNo)
+        }
+        
+        performSegue(withIdentifier: "eventURLSegue", sender: nil)
+    }
+    
+    
+    func GetTheEventURL(labelNo: Int){
+        
+        let event = eventDataForRound[labelNo]
+        for item in event{
+            infoURL = item.value.URL
+        }
+    }
+    
+    
     
     func checkAnswer(){
         
@@ -144,43 +145,86 @@ class ViewController: UIViewController {
         let wrongAnswers: [Int]? = checkUserAnswer.wrongAnswers
         
         changeUIState(gameState: .answerSubmitted, isRoundCorrect: isRoundCorrect)
+        makeLabelsInteractive(pressable: true)
+
+        if let wrongAnswers = wrongAnswers{
+            highlightWrongEvents(wrongAnswers: wrongAnswers)
+        }
+        
+            soundToPlay.play(isCorrect: isRoundCorrect)
         
     }
     
-    
+
     @IBAction func newRound(){
-        boutTime.incrementRoundCount()
-        eventDataForRound = boutTime.getHistoricalEventsForRound()
-        updateLabelsWithEventDescription()
-        changeUIState(gameState: .newRound, isRoundCorrect: nil)
+        
+        if boutTime.isGameOver(){
+            gameOver()
+            
+        } else {
+            
+            boutTime.incrementRoundCount()
+            eventDataForRound = boutTime.getHistoricalEventsForRound()
+            updateLabelsWithEventDescription()
+            changeUIState(gameState: .newRound, isRoundCorrect: nil)
+            timerInterval = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(displayTimer), userInfo: nil, repeats: true)
+            makeLabelsInteractive(pressable: false)
+
+        }
+     }
+    
+    
+    
+    func displayTimer(){
+        
+        if roundTimer.isTimerFinished(){
+            stopTimer()
+            checkAnswer()
+
+        }else {
+            roundTimer.increment()
+            timerLabel.text = roundTimer.displayString()
+        }
+    }
+    
+    func stopTimer(){
+        roundTimer.ResetTimer()
+        timerLabel.text = roundTimer.displayString()
+        timerInterval.invalidate()
+    }
+
+    
+    @IBAction func NewGame(){
+
+        changeUIState(gameState: .newGame, isRoundCorrect: nil)
+        boutTime.resetGame()
+        newRound()
+
     }
     
     func gameOver(){
         
+        stopTimer()
+        changeUIState(gameState: .endGame, isRoundCorrect: nil)
+        scoreLabel.text = "\(boutTime.correctRounds)/\(boutTime.totalNoOfRounds)"
+        //performSegue(withIdentifier: "FinalScoreView", sender: self)
     }
 
-    
-    func updateLabelsWithEventDescription(){
-        
-        for lbl in eventLabelCollection{
-            let recordForLabel = eventDataForRound[lbl.tag]            
-            for item in recordForLabel{
-                lbl.text = String(item.value.description)
-            }
-            
-        }
-    }
+
     
     func changeUIState(gameState: gameUIState, isRoundCorrect: Bool?){
         
         switch gameState {
             
         case .newGame:
-        setButtonSelectImage()
+            hideUnhideUI(state: .newGame)
+            setButtonSelectImage()
         
         case .newRound:
             nextRoundButton.isHidden = true
             timerLabel.isHidden = false
+            shakeTextLabel.text = "Shake to complete"
+
             
         case .answerSubmitted:
             if let isRoundCorrect = isRoundCorrect{
@@ -189,14 +233,31 @@ class ViewController: UIViewController {
             
             nextRoundButton.isHidden = false
             timerLabel.isHidden = true
+            shakeTextLabel.text = "Tap events to learn more"
             
-
+        case .endGame:
+            hideUnhideUI(state: .endGame)
+        
         default:
             break
         }
     }
     
 
+    
+    func updateLabelsWithEventDescription(){
+        
+        for lbl in eventLabelCollection{
+            let recordForLabel = eventDataForRound[lbl.tag]
+            for item in recordForLabel{
+                lbl.text = String(item.value.description)
+                lbl.textColor = UIColor(red: 0/255, green: 64/255, blue: 128/255, alpha: 1.0)
+            }
+            
+        }
+    }
+    
+    
     func setButtonSelectImage(){
 
         for button in eventButtonCollection{
@@ -220,6 +281,85 @@ class ViewController: UIViewController {
             return fail
         }
     }
+    
+    func highlightWrongEvents(wrongAnswers: Array<Int>){
+        
+        var labelCount = 0
+        
+        for event in eventDataForRound{
+            for item in event{
+                let seqNo = item.value.seqNo
+                
+                for answer in wrongAnswers{
+                    
+                    if answer == seqNo{
+                        eventLabelCollection[labelCount].textColor = UIColor.red
+                    }
+                }
+                
+            }
+         labelCount += 1
+        }
+    }
+    
+    func hideUnhideUI(state: gameUIState){
+        
+        var hideGameScreen: Bool!
+        var hideScoreScreen: Bool!
+        
+        
+        switch state {
+        case .newGame:
+            hideGameScreen = false
+            hideScoreScreen = true
+        case .endGame:
+            hideGameScreen = true
+            hideScoreScreen = false
+        default:
+            break
+        }
 
+        
+        //Game Screen UI Objects
+        
+        for label in eventLabelCollection{
+        label.isHidden = hideGameScreen
+        }
+        
+        for button in eventButtonCollection{
+        button.isHidden = hideGameScreen
+        }
+        
+        nextRoundButton.isHidden = hideGameScreen
+        timerLabel.isHidden = hideGameScreen
+        shakeTextLabel.isHidden = hideGameScreen
+        earliestTextLabel.isHidden = hideGameScreen
+        latestTextLabel.isHidden = hideGameScreen
+        
+
+        //Final Score Screen UI Objects
+
+        yourScoreLabel.isHidden = hideScoreScreen
+        playAgainButton.isHidden = hideScoreScreen
+        scoreLabel.isHidden = hideScoreScreen
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if (segue.identifier == "eventURLSegue") {
+            let svc = segue.destination as! EventInfoVC
+            
+            if let URLStr = infoURL {
+                svc.eventURL = URLStr
+            }
+            
+        }
+    }
+
+
+    
 
 }
+
+

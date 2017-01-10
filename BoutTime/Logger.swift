@@ -9,6 +9,8 @@
 import Foundation
 
 func loggingPrint<T>(_ closure: @autoclosure () -> T, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    // Function used for internal logging of attribute values for trouble shooting
+    
     #if DEBUG
         let instance = closure()
         let description: String
