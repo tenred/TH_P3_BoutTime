@@ -219,12 +219,13 @@ class ViewController: UIViewController {
         case .newGame:
             hideUnhideUI(state: .newGame)
             setButtonSelectImage()
+            makeDirectionButtonsEnabled(state: true)
         
         case .newRound:
             nextRoundButton.isHidden = true
             timerLabel.isHidden = false
+            makeDirectionButtonsEnabled(state: true)
             shakeTextLabel.text = "Shake to complete"
-
             
         case .answerSubmitted:
             if let isRoundCorrect = isRoundCorrect{
@@ -233,6 +234,7 @@ class ViewController: UIViewController {
             
             nextRoundButton.isHidden = false
             timerLabel.isHidden = true
+            makeDirectionButtonsEnabled(state: false)
             shakeTextLabel.text = "Tap events to learn more"
             
         case .endGame:
@@ -242,7 +244,6 @@ class ViewController: UIViewController {
             break
         }
     }
-    
 
     
     func updateLabelsWithEventDescription(){
@@ -280,6 +281,14 @@ class ViewController: UIViewController {
         } else {
             return fail
         }
+    }
+    
+    func makeDirectionButtonsEnabled(state: Bool){
+        
+        for button in eventButtonCollection{
+            button.isEnabled = state
+        }
+        
     }
     
     func highlightWrongEvents(wrongAnswers: Array<Int>){
